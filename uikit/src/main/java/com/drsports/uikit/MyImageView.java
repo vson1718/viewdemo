@@ -7,8 +7,6 @@ import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
-import androidx.core.graphics.BitmapCompat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,20 +100,27 @@ public class MyImageView extends View implements GestureDetector.OnGestureListen
             return;
         }
         mOptions.inBitmap = mBitmap;
+        //局部解码bitmap
         mBitmap = mDecoder.decodeRegion(mRect, mOptions);
         matrix.setScale(mScale, mScale);
         canvas.drawBitmap(mBitmap, matrix, null);
     }
 
-
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         return mGestureDetector.onTouchEvent(event);
     }
 
     @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
+
+    @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        //改变加载图片的区域
         mRect.offset(0, (int) distanceY);
+        //bottom大于图片高了， 或者 top小于0了
         if (mRect.bottom > mImageHeight) {
             mRect.bottom = mImageHeight;
             mRect.top = (int) (mImageHeight - mViewHeight / mScale);
@@ -129,11 +133,16 @@ public class MyImageView extends View implements GestureDetector.OnGestureListen
         return false;
     }
 
+    /**
+     * 获取计算结果并且重绘
+     */
     @Override
     public void computeScroll() {
+        //已经计算结束 return
         if (mScroller.isFinished()) {
             return;
         }
+        //true 表示当前动画未结束
         if (mScroller.computeScrollOffset()) {
             mRect.top = mScroller.getCurrY();
             mRect.bottom = mRect.top + (int) (mViewHeight / mScale);
@@ -169,7 +178,14 @@ public class MyImageView extends View implements GestureDetector.OnGestureListen
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        mScroller.fling(0, mRect.top, 0, (int) -velocityY, 0, 0, 0, mImageHeight - (int) (mViewHeight / mScale));
+        /**
+         * startX: 滑动开始的x坐标
+         * velocityX: 以每秒像素为单位测量的初始速度
+         * minX: x方向滚动的最小值
+         * maxX: x方向滚动的最大值
+         */
+        mScroller.fling(0, mRect.top, 0, (int) -velocityY,
+                0, 0, 0, mImageHeight - (int) (mViewHeight / mScale));
         return false;
     }
 
