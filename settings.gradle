@@ -1,3 +1,4 @@
 rootProject.name='DemoView'
 include ':app'
 include ':uikit'
+include ':opengllib'
