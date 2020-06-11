@@ -35,6 +35,7 @@ public class ScreenFilter {
         vertexBuffer = ByteBuffer.allocateDirect(4 * 4 * 2)
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer();
+
         float[] VERTEX = {
                 -1.0f, -1.0f,
                 1.0f, -1.0f,
@@ -78,7 +79,6 @@ public class ScreenFilter {
     public void onDraw(int texture) {
         //设置绘制区域
         GLES20.glViewport(0, 0, mWidth, mHeight);
-
 
         GLES20.glUseProgram(program);
 

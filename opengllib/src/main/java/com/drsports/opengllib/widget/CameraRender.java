@@ -20,7 +20,9 @@ import javax.microedition.khronos.opengles.GL10;
  * E-mail :vson1718@163.com
  * 项目描述:
  */
-public class CameraRender implements GLSurfaceView.Renderer, Preview.OnPreviewOutputUpdateListener, SurfaceTexture.OnFrameAvailableListener {
+public class CameraRender implements GLSurfaceView.Renderer,
+        Preview.OnPreviewOutputUpdateListener
+        , SurfaceTexture.OnFrameAvailableListener {
 
 
     private CameraView cameraView;
@@ -41,7 +43,8 @@ public class CameraRender implements GLSurfaceView.Renderer, Preview.OnPreviewOu
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         //创建OpenGL 纹理 ,把摄像头的数据与这个纹理关联
-        textures = new int[1];  //当做能在opengl用的一个图片的ID
+        //当做能在opengl用的一个图片的ID
+        textures = new int[1];
         mCameraTexure.attachToGLContext(textures[0]);
         // 当摄像头数据有更新回调 onFrameAvailable
         mCameraTexure.setOnFrameAvailableListener(this);
@@ -50,14 +53,13 @@ public class CameraRender implements GLSurfaceView.Renderer, Preview.OnPreviewOu
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        screenFilter.setSize(width,height);
+        screenFilter.setSize(width, height);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        //todo 更新纹理
+        // 更新纹理
         mCameraTexure.updateTexImage();
-
         mCameraTexure.getTransformMatrix(mtx);
 
         screenFilter.setTransformMatrix(mtx);
