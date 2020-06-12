@@ -58,7 +58,7 @@ public class CameraRender implements GLSurfaceView.Renderer,
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        // 更新纹理
+        // 更新纹理textures[0]
         mCameraTexure.updateTexImage();
         mCameraTexure.getTransformMatrix(mtx);
 
