@@ -19,14 +19,18 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import kotlin.Unit;
 
+/**
+ * @author vson
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button rxJavaBnt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        rxJavaBnt=findViewById(R.id.rx_java);
+        rxJavaBnt = findViewById(R.id.rx_java);
         RxView.clicks(rxJavaBnt)
                 .throttleFirst(2, TimeUnit.SECONDS)
                 .subscribe(new Observer<Unit>() {
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(@NonNull Unit unit) {
-                        Log.d("TAG", "发送了网络请求" );
+                        Log.d("TAG", "发送了网络请求");
                     }
 
                     @Override
@@ -52,16 +56,20 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
-
-
-
     }
 
     public void onOpenImage(View view) {
-        startActivity(new Intent(this,ImageActivity.class));
+        startActivity(new Intent(this, ImageActivity.class));
     }
+
     public void onOpenGl(View view) {
-        startActivity(new Intent(this,OpenGlActivity.class));
+        startActivity(new Intent(this, OpenGlActivity.class));
+    }
+
+    public void pluginOpen(View view) {
+        Intent intent = new Intent();
+        intent.setClassName("com.drsports.appplugin", "com.drsports.appplugin.PluginActivity");
+        startActivity(intent);
+
     }
 }

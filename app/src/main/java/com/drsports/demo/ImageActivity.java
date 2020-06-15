@@ -8,6 +8,10 @@ import com.drsports.uikit.MyImageView;
 
 import java.io.IOException;
 
+
+/**
+ * @author vson
+ */
 public class ImageActivity extends AppCompatActivity {
 
     @Override

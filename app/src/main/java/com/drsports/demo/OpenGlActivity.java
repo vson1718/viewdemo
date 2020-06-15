@@ -12,6 +12,9 @@ import android.view.WindowManager;
 
 import com.drsports.demo.util.PermissionsUtils;
 
+/**
+ * @author vson
+ */
 public class OpenGlActivity extends AppCompatActivity {
 
 
