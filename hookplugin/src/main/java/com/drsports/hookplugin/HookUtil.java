@@ -68,6 +68,7 @@ public class HookUtil {
                                 Intent intentProxy = new Intent();
                                 intentProxy.setClassName("com.drsports.hookplugin", "com.drsports.hookplugin.ProxyActivity");
                                 intentProxy.putExtra(TARGET_INTENT, intent);
+                                args[index]=intentProxy;
                             }
                             return method.invoke(mInstance, args);
                         }

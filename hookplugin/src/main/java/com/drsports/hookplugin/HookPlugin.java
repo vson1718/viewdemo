@@ -12,6 +12,6 @@ public class HookPlugin {
     public static void init(Context context) {
         LoadUtil.loadClass(context);
         HookUtil.hookAMS();
-//        HookUtil.hookHandler();
+        HookUtil.hookHandler();
     }
 }
