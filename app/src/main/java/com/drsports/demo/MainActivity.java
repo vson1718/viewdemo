@@ -70,6 +70,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setClassName("com.drsports.appplugin", "com.drsports.appplugin.PluginActivity");
         startActivity(intent);
-
     }
 }

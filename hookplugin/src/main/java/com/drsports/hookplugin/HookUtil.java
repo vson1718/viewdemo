@@ -27,10 +27,13 @@ public class HookUtil {
 
     public static void hookAMS() {
 
-        Object singleton = null;
+        Object singleton;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                // TODO: 2020/6/15  29
+                Class<?> clazz = Class.forName("android.app.ActivityTaskManager");
+                Field singletonField = clazz.getDeclaredField("IActivityTaskManagerSingleton");
+                singletonField.setAccessible(true);
+                singleton = singletonField.get(null);
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Class<?> clazz = Class.forName("android.app.ActivityManager");
                 Field singletonField = clazz.getDeclaredField("IActivityManagerSingleton");
@@ -75,6 +78,7 @@ public class HookUtil {
         }
     }
 
+
     public static void hookHandler() {
 
         try {
@@ -102,7 +106,9 @@ public class HookUtil {
                                 Intent proxyIntent = (Intent) intentField.get(msg.obj);
                                 //替换回来
                                 Intent intent = (Intent) proxyIntent.getSerializableExtra(TARGET_INTENT);
-                                intentField.set(msg.obj, intent);
+                                if (intent != null) {
+                                    intentField.set(msg.obj, intent);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
