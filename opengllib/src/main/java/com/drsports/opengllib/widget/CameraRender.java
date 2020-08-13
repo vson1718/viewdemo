@@ -2,6 +2,7 @@ package com.drsports.opengllib.widget;
 
 import android.graphics.SurfaceTexture;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import androidx.camera.core.Preview;
@@ -28,7 +29,7 @@ public class CameraRender implements GLSurfaceView.Renderer,
     private CameraView cameraView;
     private CameraHelper cameraHelper;
 
-    private SurfaceTexture mCameraTexure;
+    private SurfaceTexture mCameraTexture;
     private int[] textures;
     private ScreenFilter screenFilter;
     float[] mtx = new float[16];
@@ -45,36 +46,43 @@ public class CameraRender implements GLSurfaceView.Renderer,
         //创建OpenGL 纹理 ,把摄像头的数据与这个纹理关联
         //当做能在opengl用的一个图片的ID
         textures = new int[1];
-        mCameraTexure.attachToGLContext(textures[0]);
+        mCameraTexture.attachToGLContext(textures[0]);
         // 当摄像头数据有更新回调 onFrameAvailable
-        mCameraTexure.setOnFrameAvailableListener(this);
+        mCameraTexture.setOnFrameAvailableListener(this);
         screenFilter = new ScreenFilter(cameraView.getContext());
+        Log.d("TAG","onSurfaceCreated=====");
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         screenFilter.setSize(width, height);
+        Log.d("TAG","onSurfaceChanged=====");
+
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
         // 更新纹理textures[0]
-        mCameraTexure.updateTexImage();
-        mCameraTexure.getTransformMatrix(mtx);
+        mCameraTexture.updateTexImage();
+        mCameraTexture.getTransformMatrix(mtx);
 
         screenFilter.setTransformMatrix(mtx);
         screenFilter.onDraw(textures[0]);
+        Log.d("TAG","onDrawFrame=====");
+
     }
 
     @Override
     public void onFrameAvailable(SurfaceTexture surfaceTexture) {
         //  请求执行一次 onDrawFrame
         cameraView.requestRender();
+        Log.d("TAG","onFrameAvailable=====");
     }
 
     @Override
     public void onUpdated(Preview.PreviewOutput output) {
-        mCameraTexure = output.getSurfaceTexture();
+        mCameraTexture = output.getSurfaceTexture();
+        Log.d("TAG","onUpdated=====");
     }
 
     public void onSurfaceDestroyed() {

@@ -2,6 +2,7 @@ package com.drsports.demo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,7 +69,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void pluginOpen(View view) {
         Intent intent = new Intent();
-        intent.setClassName("com.drsports.appplugin", "com.drsports.appplugin.PluginActivity");
+        intent.setComponent(new ComponentName("com.drsports.appplugin",
+                "com.drsports.appplugin.PluginActivity"));
         startActivity(intent);
+    }
+
+    public void sliding(View view) {
+
+        startActivity(new Intent(this, SlidingActivity.class));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

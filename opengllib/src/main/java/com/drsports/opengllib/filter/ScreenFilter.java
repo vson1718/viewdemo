@@ -102,7 +102,6 @@ public class ScreenFilter {
         // 0: 图层ID  GL_TEXTURE0
         // GL_TEXTURE1 ， 1
         GLES20.glUniform1i(vTexture,0);
-
         GLES20.glUniformMatrix4fv(vMatrix, 1, false, mtx, 0);
 
         //通知画画，

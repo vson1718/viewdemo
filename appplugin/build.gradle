@@ -1,15 +1,18 @@
 apply plugin: 'com.android.application'
 
+def androidLib = rootProject.ext.android
+
+
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion androidLib.compileSdkVersion
+    buildToolsVersion androidLib.buildToolsVersion
 
     defaultConfig {
         applicationId "com.drsports.appplugin"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion androidLib.minSdkVersion
+        targetSdkVersion androidLib.targetSdkVersion
+        versionCode androidLib.versionCode
+        versionName androidLib.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -19,6 +22,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }

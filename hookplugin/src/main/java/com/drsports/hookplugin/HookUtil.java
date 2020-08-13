@@ -61,14 +61,14 @@ public class HookUtil {
                                 for (int i = 0; i < args.length; i++) {
                                     if (args[i] instanceof Intent) {
                                         index = i;
+                                        Intent intent = (Intent) args[index];
+                                        Intent intentProxy = new Intent();
+                                        intentProxy.setClassName("com.drsports.hookplugin", "com.drsports.hookplugin.ProxyActivity");
+                                        intentProxy.putExtra(TARGET_INTENT, intent);
+                                        args[index]=intentProxy;
                                         break;
                                     }
                                 }
-                                Intent intent = (Intent) args[index];
-                                Intent intentProxy = new Intent();
-                                intentProxy.setClassName("com.drsports.hookplugin", "com.drsports.hookplugin.ProxyActivity");
-                                intentProxy.putExtra(TARGET_INTENT, intent);
-                                args[index]=intentProxy;
                             }
                             return method.invoke(mInstance, args);
                         }

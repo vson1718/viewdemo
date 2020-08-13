@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appplugin" />
             <option value="$PROJECT_DIR$/hookplugin" />
+            <option value="$PROJECT_DIR$/jetpacklib" />
             <option value="$PROJECT_DIR$/opengllib" />
             <option value="$PROJECT_DIR$/uikit" />
           </set>

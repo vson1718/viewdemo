@@ -14,7 +14,7 @@ public class ClientApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        HookPlugin.init(this);
+//        HookPlugin.init(this);
     }
 
 }

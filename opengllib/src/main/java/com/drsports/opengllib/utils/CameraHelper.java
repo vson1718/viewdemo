@@ -1,13 +1,11 @@
 package com.drsports.opengllib.utils;
 
-import android.graphics.Camera;
 import android.os.HandlerThread;
 import android.util.Size;
 
 import androidx.camera.core.CameraX;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
-import androidx.camera.core.UseCase;
 import androidx.lifecycle.LifecycleOwner;
 
 /**
@@ -22,7 +20,7 @@ public class CameraHelper {
 
     private HandlerThread handlerThread;
 
-    private CameraX.LensFacing currentFacing = CameraX.LensFacing.BACK;
+    private CameraX.LensFacing currentFacing = CameraX.LensFacing.FRONT;
 
     private Preview.OnPreviewOutputUpdateListener listener;
 
